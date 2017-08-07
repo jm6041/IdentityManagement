@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManagement", "IdentityManagement\IdentityManagement.csproj", "{EFFE22F4-28EE-438B-9DEA-644F97E19291}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tongfang.IdentityManagement", "src\Tongfang.IdentityManagement\Tongfang.IdentityManagement.csproj", "{E73B485D-4772-4682-A3B9-367C9DBBF5D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EFFE22F4-28EE-438B-9DEA-644F97E19291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFFE22F4-28EE-438B-9DEA-644F97E19291}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EFFE22F4-28EE-438B-9DEA-644F97E19291}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EFFE22F4-28EE-438B-9DEA-644F97E19291}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E73B485D-4772-4682-A3B9-367C9DBBF5D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E73B485D-4772-4682-A3B9-367C9DBBF5D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E73B485D-4772-4682-A3B9-367C9DBBF5D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E73B485D-4772-4682-A3B9-367C9DBBF5D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
