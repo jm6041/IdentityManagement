@@ -43,9 +43,12 @@ namespace Tongfang.IdentityManagement
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext, Guid>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = true;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext, Guid>()
+            .AddDefaultTokenProviders();
 
             services.AddMvc();
 
@@ -102,11 +105,6 @@ namespace Tongfang.IdentityManagement
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
-            app.UseMicrosoftAccountAuthentication(new MicrosoftAccountOptions()
-            {
-                ClientId = Configuration["Authentication:Microsoft:ApplicationId"],
-                ClientSecret = Configuration["Authentication:Microsoft:Password"]
-            });
 
             app.UseMvc(routes =>
             {
