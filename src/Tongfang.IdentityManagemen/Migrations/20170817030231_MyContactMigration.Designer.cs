@@ -7,12 +7,13 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using Tongfang.IdentityManagemen.Data;
+using Tongfang.IdentityManagemen.Models;
 
 namespace Tongfang.IdentityManagemen.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170816055613_MyFirstMigration")]
-    partial class MyFirstMigration
+    [Migration("20170817030231_MyContactMigration")]
+    partial class MyContactMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -175,6 +176,32 @@ namespace Tongfang.IdentityManagemen.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Tongfang.IdentityManagemen.Models.Contact", b =>
+                {
+                    b.Property<int>("ContactId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Name");
+
+                    b.Property<Guid>("OwnerID");
+
+                    b.Property<string>("State");
+
+                    b.Property<int>("Status");
+
+                    b.Property<string>("Zip");
+
+                    b.HasKey("ContactId");
+
+                    b.ToTable("Contact");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

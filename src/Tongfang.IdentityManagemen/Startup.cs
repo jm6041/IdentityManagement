@@ -14,6 +14,7 @@ using Tongfang.IdentityManagemen.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Tongfang.IdentityManagemen.Authorization;
 
 namespace Tongfang.IdentityManagemen
 {
@@ -60,23 +61,11 @@ namespace Tongfang.IdentityManagemen
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-            #region snippet_SSL 
-            var skipSSL = Configuration.GetValue<bool>("LocalTest:skipSSL");
-            // requires using Microsoft.AspNetCore.Mvc;
             services.Configure<MvcOptions>(options =>
             {
-                // Set LocalTest:skipSSL to true to skip SSL requrement in 
-                // debug mode. This is useful when not using Visual Studio.
-                if (_hostingEnv.IsDevelopment() && !skipSSL)
-                {
-                    options.Filters.Add(new RequireHttpsAttribute());
-                }
+                options.Filters.Add(new RequireHttpsAttribute());
             });
-            #endregion
 
-            #region snippet_defaultPolicy
-            // requires: using Microsoft.AspNetCore.Authorization;
-            //           using Microsoft.AspNetCore.Mvc.Authorization;
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
@@ -84,7 +73,11 @@ namespace Tongfang.IdentityManagemen
                                  .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
-            #endregion
+
+            // Authorization handlers.
+            services.AddScoped<IAuthorizationHandler, ContactIsOwnerAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, ContactAdministratorsAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, ContactManagerAuthorizationHandler>();
 
             //services.Configure<AuthMessageSenderOptions>(Configuration);
         }
@@ -113,6 +106,22 @@ namespace Tongfang.IdentityManagemen
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var testUserPw = Configuration["SeedUserPW"];
+            if (String.IsNullOrEmpty(testUserPw))
+            {
+                throw new System.Exception("Use secrets manager to set SeedUserPW \n" +
+                                           "dotnet user-secrets set SeedUserPW <pw>");
+            }
+
+            try
+            {
+                SeedData.Initialize(app.ApplicationServices, testUserPw).Wait();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

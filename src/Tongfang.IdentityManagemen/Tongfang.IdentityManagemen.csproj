@@ -22,8 +22,4 @@
     <ProjectReference Include="..\Tongfang.WcfClient\Tongfang.WcfClient.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Authorization\" />
-  </ItemGroup>
-
 </Project>
